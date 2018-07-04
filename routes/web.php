@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('csrf', function() {
+    return Session::token();
+});
+Route::get('/teams/{id}', 'TeamController@show');
+Route::post('/teams/create', 'TeamController@create');
