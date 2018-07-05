@@ -15,9 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth']], function () {
 
-Route::post('/players/create', 'PlayerController@create');
-Route::post('/players/update/{id}', 'PlayerController@update');
+    Route::post('/players/create', 'PlayerController@create');
+    Route::post('/players/update/{id}', 'PlayerController@update');
 
-Route::get('/teams/{id}', 'TeamController@show');
-Route::post('/teams/create', 'TeamController@create');
+    Route::get('/teams/{id}', 'TeamController@show');
+    Route::post('/teams/create', 'TeamController@create');
+
+});
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
