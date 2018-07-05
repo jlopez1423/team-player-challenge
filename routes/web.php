@@ -14,8 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('csrf', function() {
-    return Session::token();
-});
+
+
+Route::post('/players/create', 'PlayerController@create');
+Route::post('/players/update/{id}', 'PlayerController@update');
+
 Route::get('/teams/{id}', 'TeamController@show');
 Route::post('/teams/create', 'TeamController@create');
