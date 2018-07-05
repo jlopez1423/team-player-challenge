@@ -11,17 +11,18 @@ class TeamController extends Controller
 {
     public function create(Request $request)
     {
-        $this->validate($request,
-            [
-                'name' => 'required',
-            ]
-        );
+        try {
+            $this->validate($request,
+                [
+                    'name' => 'required',
+                ]
+            );
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
 
-        $team = Team::create(
-            [
-                'name' => $request->get('name'),
-            ]
-        );
+        }
+
+        $team = Team::create($request->all());
 
         return new JsonResponse($team, Response::HTTP_CREATED);
     }
